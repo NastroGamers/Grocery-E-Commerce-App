@@ -11,6 +11,7 @@ class AppConfig {
   static const String productsEndpoint = '/products';
   static const String categoriesEndpoint = '/categories';
   static const String cartEndpoint = '/cart';
+  static const String wishlistEndpoint = '/wishlist';
   static const String ordersEndpoint = '/orders';
   static const String userEndpoint = '/user';
   static const String addressEndpoint = '/address';
