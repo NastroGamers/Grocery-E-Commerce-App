@@ -1,0 +1,54 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - avoid_print
+    - prefer_const_constructors
+    - prefer_const_literals_to_create_immutables
+    - use_key_in_widget_constructors
+    - avoid_unnecessary_containers
+    - sized_box_for_whitespace
+    - prefer_const_declarations
+    - avoid_function_literals_in_foreach_calls
+    - prefer_if_null_operators
+    - prefer_null_aware_operators
+    - unnecessary_null_in_if_null_operators
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - avoid_returning_null_for_void
+    - always_declare_return_types
+    - annotate_overrides
+    - avoid_init_to_null
+    - avoid_null_checks_in_equality_operators
+    - avoid_return_types_on_setters
+    - camel_case_types
+    - empty_constructor_bodies
+    - library_names
+    - library_prefixes
+    - prefer_adjacent_string_concatenation
+    - prefer_collection_literals
+    - prefer_conditional_assignment
+    - prefer_contains
+    - prefer_final_fields
+    - prefer_for_elements_to_map_fromIterable
+    - prefer_generic_function_type_aliases
+    - prefer_if_elements_to_conditional_expressions
+    - prefer_interpolation_to_compose_strings
+    - prefer_iterable_whereType
+    - prefer_single_quotes
+    - slash_for_doc_comments
+    - type_init_formals
+    - unnecessary_const
+    - unnecessary_new
+    - unnecessary_this
+    - use_function_type_syntax_for_parameters
+    - use_rethrow_when_possible
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+  errors:
+    missing_required_param: error
+    missing_return: error
+    must_be_immutable: error
