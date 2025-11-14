@@ -2700,10 +2700,322 @@ class OrderDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) => const Scaffold(body: Center(child: Text('Order Detail')));
 }
 
+// Profile Screen - User profile and settings
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
   @override
-  Widget build(BuildContext context) => const Scaffold(body: Center(child: Text('Profile')));
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      appBar: AppBar(
+        title: const Text('Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () => Navigator.pushNamed(context, AppRouter.settings),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // User Info Card
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  // Avatar
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF00C569), Color(0xFF00A557)],
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'JD',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // User Details
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'John Doe',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2D3436),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        const Text(
+                          'john.doe@email.com',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFF636E72),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFD700).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.star, size: 14, color: Color(0xFFFFD700)),
+                              SizedBox(width: 4),
+                              Text(
+                                'Gold Member',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFFFFD700),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+            // Quick Stats
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _buildStatCard('28', 'Orders', Icons.shopping_bag_outlined),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildStatCard('₹5,240', 'Saved', Icons.savings_outlined),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildStatCard('12', 'Wishlist', Icons.favorite_border),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Menu Items
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  _buildMenuItem(
+                    context,
+                    'Orders',
+                    'View your order history',
+                    Icons.shopping_bag_outlined,
+                    () => Navigator.pushNamed(context, AppRouter.orderHistory),
+                  ),
+                  const Divider(height: 1),
+                  _buildMenuItem(
+                    context,
+                    'Addresses',
+                    'Manage delivery addresses',
+                    Icons.location_on_outlined,
+                    () => Navigator.pushNamed(context, AppRouter.addresses),
+                  ),
+                  const Divider(height: 1),
+                  _buildMenuItem(
+                    context,
+                    'Notifications',
+                    'Manage notifications',
+                    Icons.notifications_outlined,
+                    () => Navigator.pushNamed(context, AppRouter.notifications),
+                  ),
+                  const Divider(height: 1),
+                  _buildMenuItem(
+                    context,
+                    'Coupons',
+                    'View available coupons',
+                    Icons.local_offer_outlined,
+                    () => Navigator.pushNamed(context, AppRouter.coupons),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Other Options
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  _buildMenuItem(
+                    context,
+                    'Support',
+                    'Get help and support',
+                    Icons.support_agent_outlined,
+                    () => Navigator.pushNamed(context, AppRouter.support),
+                  ),
+                  const Divider(height: 1),
+                  _buildMenuItem(
+                    context,
+                    'About',
+                    'App version and info',
+                    Icons.info_outlined,
+                    () {},
+                  ),
+                  const Divider(height: 1),
+                  _buildMenuItem(
+                    context,
+                    'Logout',
+                    'Sign out from app',
+                    Icons.logout,
+                    () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Logout'),
+                          content: const Text('Are you sure you want to logout?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  AppRouter.login,
+                                  (route) => false,
+                                );
+                              },
+                              child: const Text('Logout'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    isDestructive: true,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatCard(String value, String label, IconData icon) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: const Color(0xFF00C569), size: 24),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2D3436),
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Color(0xFF636E72),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(
+    BuildContext context,
+    String title,
+    String subtitle,
+    IconData icon,
+    VoidCallback onTap, {
+    bool isDestructive = false,
+  }) {
+    return ListTile(
+      leading: Container(
+        width: 40,
+        height: 40,
+        decoration: BoxDecoration(
+          color: isDestructive
+              ? const Color(0xFFE74C3C).withOpacity(0.1)
+              : const Color(0xFF00C569).withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(
+          icon,
+          color: isDestructive ? const Color(0xFFE74C3C) : const Color(0xFF00C569),
+          size: 20,
+        ),
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: isDestructive ? const Color(0xFFE74C3C) : const Color(0xFF2D3436),
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(
+          fontSize: 13,
+          color: Color(0xFF636E72),
+        ),
+      ),
+      trailing: Icon(
+        Icons.chevron_right,
+        color: isDestructive ? const Color(0xFFE74C3C) : const Color(0xFF636E72),
+      ),
+      onTap: onTap,
+    );
+  }
 }
 
 class AddressesScreen extends StatelessWidget {
